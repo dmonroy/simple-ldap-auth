@@ -5,6 +5,7 @@ from flask import Flask, request, Response
 import ldap
 
 app = Flask(__name__)
+app.config['PROPAGATE_EXCEPTIONS'] = True
 
 AUTH_MESSAGE = os.getenv(
     'AUTH_MESSAGE',
