@@ -50,11 +50,13 @@ def auth(user_dn):
     if authr is None:
         return authenticate()
 
-    user_dn = user_dn.format(username=authr.username)
-    if ldap_authenticate(user_dn, authr.password):
-        return Response('', 204)
+    for dn in user_dn.split('||'):
+        dn = dn.format(username=authr.username)
+        if ldap_authenticate(dn, authr.password):
+            return Response('', 204)
 
     return authenticate()
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8000)
